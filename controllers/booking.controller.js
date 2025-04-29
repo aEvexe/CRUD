@@ -1,6 +1,5 @@
 const db = require('../config/db');
 
-// CREATE booking
 const createBooking = (req, res) => {
     const { stadion_id, user_id, booking_date, start_time, end_time, total_price, status } = req.body;
 
@@ -17,7 +16,6 @@ const createBooking = (req, res) => {
     });
 };
 
-// GET all bookings
 const getAllBookings = (req, res) => {
     db.query("SELECT * FROM booking", (err, results) => {
         if (err) return res.status(500).json({ error: err });
@@ -25,7 +23,6 @@ const getAllBookings = (req, res) => {
     });
 };
 
-// GET booking by ID
 const getBookingById = (req, res) => {
     db.query("SELECT * FROM booking WHERE id = ?", [req.params.id], (err, results) => {
         if (err) return res.status(500).json({ error: err });
@@ -34,7 +31,7 @@ const getBookingById = (req, res) => {
     });
 };
 
-// UPDATE booking
+
 const updateBooking = (req, res) => {
     const { stadion_id, user_id, booking_date, start_time, end_time, total_price, status } = req.body;
     const sql = `UPDATE booking SET stadion_id=?, user_id=?, booking_date=?, start_time=?, end_time=?, total_price=?, status=?
@@ -46,7 +43,6 @@ const updateBooking = (req, res) => {
     });
 };
 
-// DELETE booking
 const deleteBooking = (req, res) => {
     db.query("DELETE FROM booking WHERE id = ?", [req.params.id], (err) => {
         if (err) return res.status(500).json({ error: err });

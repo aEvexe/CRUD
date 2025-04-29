@@ -1,6 +1,5 @@
 const db = require('../config/db');
 
-// CREATE payment
 const createPayment = (req, res) => {
     const { booking_id, amount, payment_time, payment_method } = req.body;
 
@@ -17,7 +16,6 @@ const createPayment = (req, res) => {
     });
 };
 
-// GET all payments
 const getAllPayments = (req, res) => {
     db.query("SELECT * FROM payment", (err, results) => {
         if (err) return res.status(500).json({ error: err });
@@ -25,7 +23,6 @@ const getAllPayments = (req, res) => {
     });
 };
 
-// GET payment by ID
 const getPaymentById = (req, res) => {
     db.query("SELECT * FROM payment WHERE id = ?", [req.params.id], (err, results) => {
         if (err) return res.status(500).json({ error: err });
@@ -34,7 +31,6 @@ const getPaymentById = (req, res) => {
     });
 };
 
-// UPDATE payment
 const updatePayment = (req, res) => {
     const { booking_id, amount, payment_time, payment_method } = req.body;
     const sql = `UPDATE payment SET booking_id=?, amount=?, payment_time=?, payment_method=? WHERE id=?`;
@@ -45,7 +41,6 @@ const updatePayment = (req, res) => {
     });
 };
 
-// DELETE payment
 const deletePayment = (req, res) => {
     db.query("DELETE FROM payment WHERE id = ?", [req.params.id], (err) => {
         if (err) return res.status(500).json({ error: err });

@@ -68,6 +68,25 @@ SHOW TABLES
 
 SELECT * FROM users
 
+SELECT u.first_name, u.phone, f.name, i.image_url
+FROM users u
+    LEFT JOIN field f ON u.id = f.owner_id
+    LEFT JOIN images i ON f.id = i.stadion_id
+WHERE
+    first_name = "john"
+    and last_name = ""
+
+SELECT u.first_name, u.last_name, f.name, b.booking_date
+FROM booking b
+    LEFT JOIN field f ON b.stadion_id = f.id
+    LEFT JOIN user u ON b.user_id = u.id
+WHERE
+    b.booking_date BETWEEN "2025-01-01" AND "2025-06-01"
+    AND s.name LIKE '%ARENA%'
+
+
+
+
 
 
 DROP PROCEDURE IF EXISTS getAllUsers
@@ -96,3 +115,25 @@ END
 call `getUserName`(1, @userName)
 
 SELECT @userName
+
+CREATE PROCEDURE IF NOT EXISTS res_out(INOUT res INT)
+BEGIN
+    SET res=res-10;
+END
+SET @res=100
+
+CALL res_out(@res)
+
+SELECT @res
+
+
+DROP FUNCTION IF EXISTS MmyFunc1
+
+CREATE FUNCTION IF NOT EXISTS myFunc1() RETURNS INT DETERMINISTIC
+BEGIN 
+    DECLARE sum INT DEFAULT 0;
+    SELECT COUNT(*) into sum FROM stadium;
+    RETURN sum;
+END
+
+SELECT `myFunc1`()

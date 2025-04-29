@@ -3,12 +3,14 @@ const {
     getAllStadiums,
     getStadiumById,
     updateStadium,
-    deleteStadium
+    deleteStadium,
+    findStadionBetPrice
 } = require("../controllers/stadium.controller");
 
 const router = require("express").Router();
 
 router.post("/create", createStadium);
+router.post("/bet", findStadionBetPrice);
 router.get("/all", getAllStadiums);
 router.get("/:id", getStadiumById);
 router.put("/:id", updateStadium);

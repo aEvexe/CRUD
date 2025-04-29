@@ -1,6 +1,5 @@
 const db = require('../config/db');
 
-// CREATE review
 const createReview = (req, res) => {
     const { stadion_id, user_id, rating, comment } = req.body;
 
@@ -16,7 +15,6 @@ const createReview = (req, res) => {
     });
 };
 
-// GET all reviews
 const getAllReviews = (req, res) => {
     db.query("SELECT * FROM review", (err, results) => {
         if (err) return res.status(500).json({ error: err });
@@ -24,7 +22,6 @@ const getAllReviews = (req, res) => {
     });
 };
 
-// GET review by ID
 const getReviewById = (req, res) => {
     db.query("SELECT * FROM review WHERE id = ?", [req.params.id], (err, results) => {
         if (err) return res.status(500).json({ error: err });
@@ -33,7 +30,6 @@ const getReviewById = (req, res) => {
     });
 };
 
-// UPDATE review
 const updateReview = (req, res) => {
     const { stadion_id, user_id, rating, comment } = req.body;
     const sql = `UPDATE review SET stadion_id=?, user_id=?, rating=?, comment=? WHERE id=?`;
@@ -44,7 +40,6 @@ const updateReview = (req, res) => {
     });
 };
 
-// DELETE review
 const deleteReview = (req, res) => {
     db.query("DELETE FROM review WHERE id = ?", [req.params.id], (err) => {
         if (err) return res.status(500).json({ error: err });
